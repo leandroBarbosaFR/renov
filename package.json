@@ -6,12 +6,25 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "studio": "npm --prefix studio run dev",
+    "typegen": "npm --prefix studio run typegen",
+    "seed": "node --env-file=.env.local scripts/seed-placeholder.mjs"
   },
   "dependencies": {
+    "@portabletext/react": "^8.0.1",
+    "@sanity/client": "^8.9.0",
+    "@sanity/image-url": "^2.1.1",
+    "lucide-react": "^1.57.0",
+    "motion": "^14.3.0",
     "next": "16.4.1",
+    "next-sanity": "^13.3.4",
     "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "react-dom": "19.3.0",
+    "server-only": "^0.0.1",
+    "styled-components": "^6.6.0",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@tailwindcss/turbopack": "^4",

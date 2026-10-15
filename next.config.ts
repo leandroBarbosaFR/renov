@@ -1,9 +1,15 @@
 import type { NextConfig } from "next";
+import { sanity } from "next-sanity/live/cache-life";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   cacheComponents: true,
   partialPrefetching: true,
+  cacheLife: {
+    default: sanity,
+  },
+  images: {
+    remotePatterns: [new URL("https://cdn.sanity.io/**")],
+  },
   turbopack: {
     rules: {
       "*.css": {

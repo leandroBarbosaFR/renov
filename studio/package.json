@@ -1,0 +1,24 @@
+{
+  "name": "renov-paca-13-studio",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "sanity dev",
+    "build": "sanity build",
+    "deploy": "sanity deploy",
+    "typegen": "sanity schemas extract --force --enforce-required-fields && sanity typegen generate"
+  },
+  "dependencies": {
+    "@sanity/locale-fr-fr": "^1.2.37",
+    "@sanity/vision": "^6",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "sanity": "^6",
+    "styled-components": "^6.1.15"
+  },
+  "devDependencies": {
+    "@types/react": "^19",
+    "typescript": "^5"
+  }
+}

@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Renov PACA 13
 
-## Getting Started
+Marketing site for Renov PACA 13 (renovation, Marseille & PACA).
+Next.js 16 (App Router, Cache Components) · Tailwind CSS 4 · Sanity (standalone Studio in `studio/`) · Motion.
 
-First, run the development server:
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cp .env.example .env.local   # fill in the Sanity tokens
+npm install && npm --prefix studio install
+npm run dev                  # site   → http://localhost:3000
+npm run studio               # Studio → http://localhost:3333
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+| Script | Purpose |
+| --- | --- |
+| `npm run typegen` | Re-extract the schema and regenerate `src/sanity/types.ts` after changing schemas or GROQ queries |
+| `npm run seed` | Re-create the initial content (copy from the brief + clearly labelled placeholder projects). Overwrites those documents. |
+| `npm run build` / `typecheck` / `lint` | Production build and checks |
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `studio/` — Sanity Studio: `schemaTypes/` (documents + objects), `structure/` (French desk structure, singletons), `presentation/` (Visual Editing locations)
+- `src/sanity/lib` — client, `defineLive` setup (`loadQuery`), GROQ queries, image URL builder
+- `src/components` — `layout/`, `home/`, `projects/`, `contact/`, `shared/` (BeforeAfterSlider, CTASection, CookieBanner, SanityImage…)
+- `src/app/actions/contact.ts` — quote form server action
 
-## Learn More
+## Content model
 
-To learn more about Next.js, take a look at the following resources:
+Singletons: Paramètres du site, Accueil, À propos, Page Réalisations, Contact.
+Collections: Projets, Catégories, Pages légales, Demandes de devis (written by the website form).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contact form
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Validated with a shared zod schema (client + server). Spam protection: honeypot, minimum fill time, per-IP rate limit (best effort; add a firewall rule in production).
+Each request is stored as a **Demande de devis** in Sanity. Set `RESEND_API_KEY`, `CONTACT_NOTIFICATION_EMAIL` and `CONTACT_FROM_EMAIL` to also receive an email.
 
-## Deploy on Vercel
+## Cookies
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The banner stores consent in a first-party `rp13_consent` cookie (6 months). No analytics script is installed; gate any future one on `getConsent()?.analytics` from `src/lib/consent.ts`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Before going live
+
+- Replace the "Projet exemple" projects and all placeholder (Unsplash) photos
+- Fill in email, phone, address, Mentions légales and Politique de confidentialité
+- Set `NEXT_PUBLIC_SITE_URL`, add the production URL to Sanity CORS origins, and set `SANITY_STUDIO_PREVIEW_ORIGIN` for the Studio

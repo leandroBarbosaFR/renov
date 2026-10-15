@@ -1,0 +1,113 @@
+import {HomeIcon} from '@sanity/icons/Home'
+import {defineArrayMember, defineField, defineType} from 'sanity'
+
+export const homePage = defineType({
+  name: 'homePage',
+  title: 'Accueil',
+  type: 'document',
+  icon: HomeIcon,
+  groups: [
+    {name: 'hero', title: 'Introduction', default: true},
+    {name: 'about', title: 'À propos'},
+    {name: 'projects', title: 'Réalisations'},
+    {name: 'beforeAfter', title: 'Avant / Après'},
+    {name: 'contact', title: 'Formulaire'},
+    {name: 'seo', title: 'SEO'},
+  ],
+  fields: [
+    defineField({
+      name: 'hero',
+      title: 'Introduction',
+      type: 'object',
+      group: 'hero',
+      options: {collapsible: false},
+      fields: [
+        defineField({name: 'eyebrow', title: 'Surtitre', type: 'string'}),
+        defineField({name: 'title', title: 'Titre', type: 'string', validation: (rule) => rule.required()}),
+        defineField({name: 'description', title: 'Description', type: 'text', rows: 3}),
+        defineField({name: 'image', title: 'Image', type: 'figure'}),
+        defineField({name: 'primaryCta', title: 'Bouton principal', type: 'cta'}),
+        defineField({name: 'secondaryCta', title: 'Bouton secondaire', type: 'cta'}),
+      ],
+    }),
+    defineField({
+      name: 'about',
+      title: 'À propos',
+      type: 'object',
+      group: 'about',
+      options: {collapsible: false},
+      fields: [
+        defineField({name: 'eyebrow', title: 'Surtitre', type: 'string'}),
+        defineField({name: 'title', title: 'Titre', type: 'string'}),
+        defineField({name: 'description', title: 'Description', type: 'text', rows: 4}),
+        defineField({
+          name: 'values',
+          title: 'Engagements',
+          type: 'array',
+          of: [defineArrayMember({type: 'string'})],
+          validation: (rule) => rule.max(4),
+        }),
+        defineField({name: 'image', title: 'Image', type: 'figure'}),
+        defineField({name: 'cta', title: 'Bouton', type: 'cta'}),
+      ],
+    }),
+    defineField({
+      name: 'projects',
+      title: 'Réalisations',
+      type: 'object',
+      group: 'projects',
+      options: {collapsible: false},
+      fields: [
+        defineField({name: 'title', title: 'Titre', type: 'string'}),
+        defineField({name: 'subtitle', title: 'Sous-titre', type: 'text', rows: 2}),
+        defineField({
+          name: 'featuredProjects',
+          title: 'Projets mis en avant',
+          type: 'array',
+          description:
+            'Sélectionnez jusqu’à 3 projets. Si vide, les projets marqués « mis en avant » sont affichés.',
+          of: [defineArrayMember({type: 'reference', to: [{type: 'project'}]})],
+          validation: (rule) => rule.max(3).unique(),
+        }),
+        defineField({name: 'cta', title: 'Bouton', type: 'cta'}),
+      ],
+    }),
+    defineField({
+      name: 'beforeAfter',
+      title: 'Avant / Après',
+      type: 'object',
+      group: 'beforeAfter',
+      options: {collapsible: false},
+      fields: [
+        defineField({name: 'eyebrow', title: 'Surtitre', type: 'string'}),
+        defineField({name: 'title', title: 'Titre', type: 'string'}),
+        defineField({name: 'description', title: 'Description', type: 'text', rows: 3}),
+        defineField({
+          name: 'beforeImage',
+          title: 'Image « avant »',
+          type: 'figure',
+          description: 'Utilisez le même cadrage que l’image « après ».',
+        }),
+        defineField({name: 'afterImage', title: 'Image « après »', type: 'figure'}),
+        defineField({
+          name: 'project',
+          title: 'Projet associé',
+          type: 'reference',
+          to: [{type: 'project'}],
+          description: 'Facultatif : si les images sont vides, celles du projet sont utilisées.',
+        }),
+        defineField({name: 'cta', title: 'Bouton', type: 'cta'}),
+      ],
+    }),
+    defineField({
+      name: 'showContactForm',
+      title: 'Afficher le formulaire de contact',
+      type: 'boolean',
+      group: 'contact',
+      initialValue: true,
+      description: 'Le contenu du formulaire se modifie dans la page « Contact ».',
+    }),
+    defineField({name: 'seo', title: 'SEO', type: 'seo', group: 'seo'}),
+  ],
+  preview: {prepare: () => ({title: 'Accueil'})},
+})

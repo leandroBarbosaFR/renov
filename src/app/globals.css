@@ -1,26 +1,225 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  --color-sand: #f4f0e8;
+  --color-paper: #ffffff;
+  --color-ink: #222523;
+  --color-stone: #666861;
+  --color-accent: #9a775b;
+  --color-accent-deep: #7a5c45;
+  --color-olive: #36443b;
+  --color-olive-deep: #2b3730;
+  --color-line: #dddad3;
+  --color-mist: #e9e5dc;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-manrope), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --radius-card: 2px;
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-rise: rise 0.9s var(--ease-out-soft) both;
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--color-sand);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: var(--color-olive);
+    color: var(--color-sand);
+  }
+
+  :focus-visible {
+    outline: 1px solid var(--color-ink);
+    outline-offset: 3px;
+  }
+
+  [id] {
+    scroll-margin-top: 6rem;
+  }
+}
+
+@layer components {
+  .container-site {
+    width: 100%;
+    max-width: 90rem;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+  @media (min-width: 640px) {
+    .container-site {
+      padding-inline: 2rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .container-site {
+      padding-inline: 3rem;
+    }
+  }
+
+  .section-y {
+    padding-block: 5rem;
+  }
+  @media (min-width: 1024px) {
+    .section-y {
+      padding-block: 8rem;
+    }
+  }
+
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    line-height: 1.4;
+    text-transform: uppercase;
+    color: var(--color-accent-deep);
+  }
+
+  .text-display {
+    font-family: var(--font-display);
+    font-size: clamp(2.75rem, 1.6rem + 4.6vw, 5.75rem);
+    font-weight: 500;
+    letter-spacing: -0.045em;
+    line-height: 0.98;
+    text-wrap: balance;
+  }
+
+  .text-h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2.125rem, 1.5rem + 2.4vw, 3.75rem);
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    line-height: 1.04;
+    text-wrap: balance;
+  }
+
+  .text-h3 {
+    font-family: var(--font-display);
+    font-size: clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem);
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+  }
+
+  .text-lead {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--color-stone);
+    text-wrap: pretty;
+  }
+  @media (min-width: 1024px) {
+    .text-lead {
+      font-size: 1.125rem;
+    }
+  }
+
+  /* Link with an animated hairline underline */
+  .link-line {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.45s var(--ease-out-soft);
+  }
+  .link-line:hover,
+  .link-line[aria-current="page"] {
+    background-size: 100% 1px;
+  }
+
+  .prose-site {
+    color: var(--color-stone);
+    line-height: 1.75;
+  }
+  .prose-site > * + * {
+    margin-top: 1.1em;
+  }
+  .prose-site h2,
+  .prose-site h3 {
+    font-family: var(--font-display);
+    color: var(--color-ink);
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    margin-top: 2em;
+  }
+  .prose-site h2 {
+    font-size: 1.625rem;
+  }
+  .prose-site h3 {
+    font-size: 1.25rem;
+  }
+  .prose-site ul {
+    list-style: none;
+    padding: 0;
+  }
+  .prose-site ul > li {
+    position: relative;
+    padding-left: 1.5rem;
+  }
+  .prose-site ul > li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.85em;
+    width: 0.75rem;
+    height: 1px;
+    background: var(--color-accent);
+  }
+  .prose-site ol {
+    list-style: decimal;
+    padding-left: 1.25rem;
+  }
+  .prose-site a {
+    color: var(--color-ink);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+  .prose-site strong {
+    color: var(--color-ink);
+    font-weight: 600;
+  }
+  .prose-site blockquote {
+    border-left: 1px solid var(--color-accent);
+    padding-left: 1.25rem;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    color: var(--color-ink);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
