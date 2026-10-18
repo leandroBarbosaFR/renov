@@ -14,7 +14,7 @@ const previewOrigin = process.env.SANITY_STUDIO_PREVIEW_ORIGIN || 'http://localh
 
 export default defineConfig({
   name: 'default',
-  title: 'Renov PACA 13',
+  title: 'Renov’Action',
   projectId,
   dataset,
   plugins: [

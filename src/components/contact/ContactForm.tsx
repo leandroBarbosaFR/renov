@@ -3,7 +3,7 @@
 import { useActionState, useId, useRef, useState, useTransition } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowRight, Check, ChevronDown, LoaderCircle } from "lucide-react";
+import { Check, ChevronDown } from "lucide-react";
 import { submitContact } from "@/app/actions/contact";
 import {
   contactSchema,
@@ -13,6 +13,7 @@ import {
   type FieldErrors,
 } from "@/lib/contact/schema";
 import { cn } from "@/lib/utils";
+import { SlideToSubmit } from "./SlideToSubmit";
 
 const initialState: ContactState = { status: "idle" };
 
@@ -215,26 +216,9 @@ export function ContactForm({ content, headingLevel = "h2" }: { content: Contact
         </div>
       </div>
 
-      <div className="mt-10 flex flex-col gap-5 sm:flex-row sm:items-center">
-        <button
-          type="submit"
-          disabled={isPending}
-          className="group inline-flex min-h-14 items-center justify-between gap-6 rounded-card bg-olive py-1 pl-6 pr-1 text-[0.9375rem] font-medium text-sand transition-colors duration-300 hover:bg-olive-deep disabled:cursor-wait disabled:opacity-80"
-        >
-          <span>{isPending ? "Envoi en cours…" : content.submitLabel || "Envoyer ma demande"}</span>
-          <span className="flex size-12 items-center justify-center rounded-card bg-sand text-olive">
-            {isPending ? (
-              <LoaderCircle aria-hidden strokeWidth={1.5} className="size-5 animate-spin" />
-            ) : (
-              <ArrowRight
-                aria-hidden
-                strokeWidth={1.5}
-                className="size-5 transition-transform duration-300 group-hover:translate-x-0.5"
-              />
-            )}
-          </span>
-        </button>
-        <p id={statusId} role="alert" aria-live="polite" className="text-sm text-[#9b3b2f]">
+      <div className="mt-10 flex flex-col gap-5 sm:flex-row sm:items-start">
+        <SlideToSubmit label={content.submitLabel || "Envoyer ma demande"} pending={isPending} />
+        <p id={statusId} role="alert" aria-live="polite" className="text-sm text-[#9b3b2f] sm:pt-4">
           {state.status === "error" && !isPending ? state.message : null}
         </p>
       </div>

@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { LEGAL_PAGE_QUERY, LEGAL_SLUGS_QUERY } from "@/sanity/lib/queries";
@@ -43,7 +44,27 @@ async function LegalPage({ slug, ...options }: FetchOptions & { slug: string }) 
   );
 }
 
-export default async function Page(props: PageProps<"/[slug]">) {
-  const { slug } = await props.params;
+// Awaiting `params` inside Suspense keeps client navigations instant (Partial Prefetching).
+export default function Page(props: PageProps<"/[slug]">) {
+  return (
+    <Suspense fallback={<LegalSkeleton />}>
+      <LegalRoute params={props.params} />
+    </Suspense>
+  );
+}
+
+async function LegalRoute({ params }: { params: PageProps<"/[slug]">["params"] }) {
+  const { slug } = await params;
   return <WithFetchOptions render={(options) => <LegalPage slug={slug} {...options} />} />;
+}
+
+function LegalSkeleton() {
+  return (
+    <div aria-busy="true" aria-label="Chargement de la page" className="container-site section-y">
+      <div className="grid gap-12 lg:grid-cols-12">
+        <div className="h-24 rounded-card bg-mist lg:col-span-4" />
+        <div className="h-64 animate-pulse rounded-card bg-mist lg:col-span-7 lg:col-start-6" />
+      </div>
+    </div>
+  );
 }

@@ -11,10 +11,14 @@ import { ContactFormSection } from "@/components/contact/ContactFormSection";
 import { EmptyState } from "@/components/shared/EmptyState";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const { data } = await loadQuery({ query: HOME_QUERY, ...publishedOptions });
+  const [{ data }, { data: settings }] = await Promise.all([
+    loadQuery({ query: HOME_QUERY, ...publishedOptions }),
+    loadQuery({ query: SETTINGS_QUERY, ...publishedOptions }),
+  ]);
   const meta = buildMetadata({ seo: data?.seo, description: data?.hero?.description, path: "/", image: data?.hero?.image });
-  // The homepage uses the site-wide default title rather than the template.
-  return data?.seo?.metaTitle ? { ...meta, title: { absolute: data.seo.metaTitle } } : { ...meta, title: undefined };
+  // The homepage title stands alone (no " — Company" template suffix).
+  const title = data?.seo?.metaTitle || settings?.seo?.metaTitle || settings?.companyName || "Renov’Action";
+  return { ...meta, title: { absolute: title }, openGraph: { ...meta.openGraph, title } };
 }
 
 async function Home(options: FetchOptions) {

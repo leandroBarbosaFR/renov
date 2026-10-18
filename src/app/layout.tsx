@@ -26,7 +26,7 @@ const FALLBACK_NAV = [
 
 export async function generateMetadata(): Promise<Metadata> {
   const { data: settings } = await loadQuery({ query: SETTINGS_QUERY, ...publishedOptions });
-  const name = settings?.companyName || "Renov PACA 13";
+  const name = settings?.companyName || "Renov’Action";
   const title = settings?.seo?.metaTitle || name;
   const description = settings?.seo?.metaDescription || settings?.tagline || undefined;
 
@@ -55,7 +55,7 @@ async function Header(options: FetchOptions) {
   const { data } = await loadQuery({ query: SETTINGS_QUERY, ...options });
   return (
     <Navbar
-      companyName={data?.companyName || "Renov PACA 13"}
+      companyName={data?.companyName || "Renov’Action"}
       logo={data?.logo}
       links={data?.navigation?.length ? data.navigation : FALLBACK_NAV}
       cta={data?.headerCta ?? { label: "Demander un devis", href: "/contact" }}

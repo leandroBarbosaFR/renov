@@ -6,7 +6,7 @@ import { CurrentYear } from "./CurrentYear";
 import { ManageCookiesButton } from "@/components/shared/CookieBanner";
 
 export function Footer({ settings }: { settings: NonNullable<SETTINGS_QUERY_RESULT> | null }) {
-  const name = settings?.companyName ?? "Renov PACA 13";
+  const name = settings?.companyName ?? "Renov’Action";
   const nav = settings?.navigation ?? [];
   const legal = settings?.legalLinks?.filter((l) => l?.slug) ?? [];
   const hasContact = settings?.email || settings?.phone || settings?.serviceArea;
@@ -70,7 +70,7 @@ export function Footer({ settings }: { settings: NonNullable<SETTINGS_QUERY_RESU
           )}
         </div>
 
-        <div aria-hidden className="mt-20 select-none overflow-hidden border-t border-sand/15 pt-10 font-display text-[clamp(3rem,12vw,11rem)] font-semibold uppercase leading-[0.85] tracking-[-0.05em] text-sand/[0.07]">
+        <div aria-hidden className="mt-20 select-none overflow-hidden whitespace-nowrap border-t border-sand/15 pt-10 text-center font-display text-[clamp(3rem,12vw,11rem)] font-semibold uppercase leading-[0.85] tracking-[-0.05em] text-sand/[0.07]">
           {clean(name)}
         </div>
 

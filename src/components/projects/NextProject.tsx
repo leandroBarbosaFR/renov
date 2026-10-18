@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import { clean } from "@/lib/utils";
+import { ArrowBox } from "@/components/shared/ArrowBox";
 import { SanityImage } from "@/components/shared/SanityImage";
 import type { ProjectCardData } from "./ProjectCard";
 
@@ -25,9 +25,9 @@ export function NextProject({ project }: { project?: ProjectCardData | null }) {
               <p className="text-h2 mt-4">{project.title}</p>
               {project.location && <p className="mt-3 text-sand/75">{project.location}</p>}
             </div>
-            <span className="inline-flex min-h-12 w-fit items-center gap-3 rounded-card border border-sand/60 px-6 text-[0.9375rem] font-medium transition-colors duration-300 group-hover:bg-sand group-hover:text-ink">
+            <span className="inline-flex min-h-12 w-fit items-center gap-5 rounded-card border border-sand/60 py-[3px] pl-6 pr-[3px] text-[0.9375rem] font-medium transition-colors duration-300 group-hover:bg-sand group-hover:text-ink">
               Découvrir le projet
-              <ArrowRight aria-hidden strokeWidth={1.5} className="size-4" />
+              <ArrowBox className="bg-sand text-ink group-hover:bg-ink group-hover:text-sand" />
             </span>
           </div>
         </div>

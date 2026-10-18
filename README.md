@@ -1,6 +1,6 @@
-# Renov PACA 13
+# Renov’Action
 
-Marketing site for Renov PACA 13 (renovation, Marseille & PACA).
+Marketing site for Renov’Action (renovation, Marseille & PACA).
 Next.js 16 (App Router, Cache Components) · Tailwind CSS 4 · Sanity (standalone Studio in `studio/`) · Motion.
 
 ## Getting started
@@ -37,7 +37,7 @@ Each request is stored as a **Demande de devis** in Sanity. Set `RESEND_API_KEY`
 
 ## Cookies
 
-The banner stores consent in a first-party `rp13_consent` cookie (6 months). No analytics script is installed; gate any future one on `getConsent()?.analytics` from `src/lib/consent.ts`.
+The banner stores consent in a first-party `ra_consent` cookie (6 months). No analytics script is installed; gate any future one on `getConsent()?.analytics` from `src/lib/consent.ts`.
 
 ## Before going live
 

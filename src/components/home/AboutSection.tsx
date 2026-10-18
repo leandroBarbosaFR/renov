@@ -9,7 +9,7 @@ type AboutData = NonNullable<NonNullable<HOME_QUERY_RESULT>["about"]>;
 export function AboutSection({ data }: { data: AboutData }) {
   if (!data.title) return null;
   return (
-    <section aria-labelledby="about-title" className="border-t border-line">
+    <section aria-labelledby="about-title">
       <div className="container-site section-y">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-0">
           <Reveal className="relative aspect-[4/5] lg:col-span-6 lg:aspect-[5/6]">

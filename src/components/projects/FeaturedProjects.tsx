@@ -58,7 +58,7 @@ export function FeaturedProjects({ data }: { data: ProjectsData }) {
         )}
 
         {data.cta && (
-          <div className="mt-20 flex justify-center border-t border-line pt-12 lg:mt-28">
+          <div className="mt-20 flex justify-center pt-12 lg:mt-28">
             <CtaButton cta={data.cta} variant="outline" />
           </div>
         )}

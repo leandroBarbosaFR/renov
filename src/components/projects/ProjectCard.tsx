@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import type { ImageData } from "@/lib/types";
 import { clean, cn } from "@/lib/utils";
+import { ArrowBox } from "@/components/shared/ArrowBox";
 import { SanityImage } from "@/components/shared/SanityImage";
 
 export interface ProjectCardData {
@@ -38,7 +38,7 @@ export function ProjectCard({
             imgClassName="transition-transform duration-[1200ms] ease-out-soft group-hover:scale-[1.035] motion-reduce:transition-none"
           />
         </div>
-        <div className="mt-5 flex items-start justify-between gap-6 border-t border-line pt-5">
+        <div className="mt-5 flex items-center justify-between gap-6 border-t border-line pt-5">
           <div className="min-w-0">
             <h3
               className={cn(
@@ -59,9 +59,7 @@ export function ProjectCard({
               </p>
             )}
           </div>
-          <span className="mt-1 flex size-9 shrink-0 items-center justify-center rounded-card border border-line text-ink transition-colors duration-300 group-hover:border-ink group-hover:bg-ink group-hover:text-sand">
-            <ArrowUpRight aria-hidden strokeWidth={1.5} className="size-4" />
-          </span>
+          <ArrowBox className="bg-mist text-ink group-hover:bg-ink group-hover:text-sand" />
         </div>
       </Link>
     </article>

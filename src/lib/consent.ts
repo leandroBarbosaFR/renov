@@ -10,10 +10,10 @@ export interface Consent {
   version: 1;
 }
 
-const COOKIE = "rp13_consent";
+const COOKIE = "ra_consent";
 const MAX_AGE = 60 * 60 * 24 * 182; // ~6 months, per CNIL recommendations
-const CHANGE_EVENT = "rp13:consent-change";
-const OPEN_EVENT = "rp13:consent-open";
+const CHANGE_EVENT = "ra:consent-change";
+const OPEN_EVENT = "ra:consent-open";
 
 export function getConsent(): Consent | null {
   if (typeof document === "undefined") return null;

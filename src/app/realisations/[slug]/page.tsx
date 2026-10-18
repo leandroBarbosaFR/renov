@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -163,7 +164,37 @@ async function Project({ slug, ...options }: FetchOptions & { slug: string }) {
   );
 }
 
-export default async function ProjectPage(props: PageProps<"/realisations/[slug]">) {
-  const { slug } = await props.params;
+// Awaiting `params` inside Suspense keeps client navigations instant (Partial Prefetching).
+export default function ProjectPage(props: PageProps<"/realisations/[slug]">) {
+  return (
+    <Suspense fallback={<ProjectSkeleton />}>
+      <ProjectRoute params={props.params} />
+    </Suspense>
+  );
+}
+
+async function ProjectRoute({ params }: { params: PageProps<"/realisations/[slug]">["params"] }) {
+  const { slug } = await params;
   return <WithFetchOptions render={(options) => <Project slug={slug} {...options} />} />;
+}
+
+/** Mirrors the project header and hero image so nothing shifts when content streams in. */
+function ProjectSkeleton() {
+  return (
+    <div aria-busy="true" aria-label="Chargement du projet">
+      <div className="container-site pb-12 pt-10 sm:pt-14 lg:pb-16 lg:pt-20">
+        <div className="h-5 w-48 rounded-card bg-mist" />
+        <div className="mt-14 grid gap-10 lg:mt-20 lg:grid-cols-12 lg:items-end">
+          <div className="lg:col-span-8">
+            <div className="h-3 w-40 rounded-card bg-mist" />
+            <div className="mt-8 h-[clamp(2.75rem,1.6rem+4.6vw,5.75rem)] w-4/5 rounded-card bg-mist" />
+          </div>
+          <div className="h-16 rounded-card bg-mist lg:col-span-4" />
+        </div>
+      </div>
+      <div className="container-site">
+        <div className="aspect-[4/5] animate-pulse rounded-card bg-mist sm:aspect-[16/9]" />
+      </div>
+    </div>
+  );
 }

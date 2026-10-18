@@ -79,7 +79,7 @@ async function main() {
       title: "Mentions légales",
       slug: { _type: "slug", current: "mentions-legales" },
       body: [
-        block("Contenu à compléter par Renov PACA 13.", "h2"),
+        block("Contenu à compléter par Renov’Action.", "h2"),
         block("Cette page doit notamment indiquer :"),
         ...bullets([
           "La dénomination sociale, la forme juridique et le capital social de l’entreprise",
@@ -98,7 +98,7 @@ async function main() {
       title: "Politique de confidentialité",
       slug: { _type: "slug", current: "politique-de-confidentialite" },
       body: [
-        block("Contenu à compléter par Renov PACA 13.", "h2"),
+        block("Contenu à compléter par Renov’Action.", "h2"),
         block(
           "Le formulaire de contact collecte : nom, prénom, email, téléphone, adresse, ville et code postal du chantier, délai et descriptif des travaux. Ces données servent uniquement à répondre à votre demande.",
         ),
@@ -209,7 +209,7 @@ async function main() {
   const settings = {
     _id: "siteSettings",
     _type: "siteSettings",
-    companyName: "Renov PACA 13",
+    companyName: "Renov’Action",
     tagline: "Votre partenaire rénovation à Marseille et dans les Bouches-du-Rhône.",
     footerDescription: "Votre partenaire rénovation à Marseille et dans les Bouches-du-Rhône.",
     serviceArea: "Marseille et région PACA",
@@ -235,9 +235,9 @@ async function main() {
     },
     seo: {
       _type: "seo",
-      metaTitle: "Renov PACA 13 — Rénovation à Marseille et en PACA",
+      metaTitle: "Renov’Action — Rénovation à Marseille et en PACA",
       metaDescription:
-        "Renov PACA 13 accompagne vos projets de rénovation à Marseille et dans toute la région PACA, avec exigence, savoir-faire et attention aux détails.",
+        "Renov’Action accompagne vos projets de rénovation à Marseille et dans toute la région PACA, avec exigence, savoir-faire et attention aux détails.",
     },
   };
 
@@ -257,7 +257,7 @@ async function main() {
       eyebrow: "01 / À propos",
       title: "Des espaces repensés avec précision.",
       description:
-        "Chez Renov PACA 13, nous accompagnons chaque projet de rénovation avec une approche sur mesure, un souci du détail et une attention particulière à la qualité des finitions.",
+        "Chez Renov’Action, nous accompagnons chaque projet de rénovation avec une approche sur mesure, un souci du détail et une attention particulière à la qualité des finitions.",
       values: ["Un accompagnement personnalisé", "Une attention portée aux détails", "Des réalisations pensées pour durer"],
       image: await figure("aboutArches", "Séjour aux fenêtres en arche et poutres apparentes (image d’exemple)"),
       cta: { _type: "cta", label: "En savoir plus", href: "/a-propos" },
@@ -285,7 +285,7 @@ async function main() {
     eyebrow: "À propos",
     title: "Des espaces repensés avec précision.",
     intro:
-      "Chez Renov PACA 13, nous accompagnons chaque projet de rénovation avec une approche sur mesure, un souci du détail et une attention particulière à la qualité des finitions.",
+      "Chez Renov’Action, nous accompagnons chaque projet de rénovation avec une approche sur mesure, un souci du détail et une attention particulière à la qualité des finitions.",
     heroImage: await figure("aboutArches", "Séjour aux fenêtres en arche et poutres apparentes (image d’exemple)"),
     sections: [
       {

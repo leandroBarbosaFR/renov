@@ -25,7 +25,11 @@ export function Logo({
     );
   }
 
-  const [first, ...rest] = cleanName.split(" ");
+  // "Two Words" → bold first word | light rest; "Renov’Action" → bold "RENOV’" + light "ACTION"
+  const spaced = cleanName.match(/^(\S+)\s+(.+)$/);
+  const elided = spaced ? null : cleanName.match(/^(.+?['’])(.+)$/);
+  const first = spaced?.[1] ?? elided?.[1] ?? cleanName;
+  const rest = spaced?.[2] ?? elided?.[2] ?? "";
   return (
     <Link
       href="/"
@@ -36,9 +40,9 @@ export function Logo({
         className,
       )}
     >
-      <span className="font-bold tracking-[0.2em]">{first}</span>
-      <span aria-hidden className={cn("h-4 w-px", tone === "light" ? "bg-sand/40" : "bg-ink/25")} />
-      <span className="font-normal tracking-[0.24em]">{rest.join(" ")}</span>
+      <span className={cn("font-bold tracking-[0.2em]", elided && "-mr-3")}>{first}</span>
+      {spaced && <span aria-hidden className={cn("h-4 w-px", tone === "light" ? "bg-sand/40" : "bg-ink/25")} />}
+      {rest && <span className="font-normal tracking-[0.24em]">{rest}</span>}
     </Link>
   );
 }
